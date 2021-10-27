@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from './user.service';
-import {Observable} from 'rxjs';
 import {UserPayload} from './user-payload';
 
 @Component({
@@ -10,15 +9,22 @@ import {UserPayload} from './user-payload';
 })
 export class UsersComponent implements OnInit {
 
-  users: Observable<Array<UserPayload>>;
+  users: UserPayload[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
-    this.users = this.userService.getAllUsers();
+    this.loadData();
   }
 
   format(createdAt: string) {
     return new Date((parseInt(createdAt) * 1000)).toLocaleString();
+  }
+
+  private loadData() {
+    this.userService.getAllUsers().subscribe(data => {
+      this.users = data;
+    });
   }
 }

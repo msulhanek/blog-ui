@@ -1,9 +1,9 @@
-<div class="card text-center col-lg-6 col-md-9 col-12 mx-auto mt-5">
+<div class="card text-center col-lg-6 col-md-9 col-12 mx-auto mt-5 p-0">
   <div class="card-header">
-    <h1>Login</h1>
+    <h1 class="mb-0">Login</h1>
   </div>
   <div class="alert alert-danger" role="alert" *ngIf="message">Login not successfull!</div>
-  <div class="card-body">
+  <div class="card-body bg-light">
     <form [formGroup]="loginForm" (ngSubmit)="submit()">
       <div class="form-group">
         <label for="username" class="bmd-label-floating">Username</label>
@@ -14,7 +14,7 @@
         <input type="password" [formControlName]="'password'" class="form-control" id="password">
       </div>
       <br>
-      <button type="submit" class="btn btn-raised btn-primary" [disabled]="loginForm.invalid">Login</button>
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
     </form>
 
   </div>

@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs';
 import {PostPayload} from '../post-create/post-payload';
 import {PostCreateService} from '../post-create.service';
 
@@ -14,7 +13,7 @@ import {PostCreateService} from '../post-create.service';
 export class HomeComponent implements OnInit {
 
   images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/1200/600`);
-  posts: Observable<Array<PostPayload>>;
+  posts: PostPayload[];
   paused = false;
   unpauseOnArrow = false;
   pauseOnIndicator = false;
@@ -45,7 +44,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.posts = this.postService.getAllPosts();
+    this.postService.getAllPosts().subscribe(data => {
+      this.posts = data;
+    });
   }
 
 }

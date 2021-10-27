@@ -1,11 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-  <a class="navbar-brand nav-link active" routerLink="">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <a class="navbar-brand nav-link active" routerLink="">Home</a>
     <ul class="navbar-nav mr-auto nav nav-tabs bg-dark">
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" *ngIf="isAuthenticated()" routerLink="posts">Posts</a>
@@ -14,30 +9,38 @@
         <a class="nav-link" *ngIf="isAuthenticated()" routerLink="users">Users</a>
       </li>
     </ul>
-    <div class="row">
-      <a class="btn btn-raised btn-primary ml-3 mr-2" routerLink="posts/new" *ngIf="isAuthenticated()">Add post</a>
-      <div class="dropdown" *ngIf="isAuthenticated()">
-        <button class="btn text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Profile
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" routerLink="posts/manage">My posts</a>
-          <a class="dropdown-item" routerLink="users/settings">Settings</a>
-          <hr>
-          <a class="dropdown-item btn btn-raised btn-danger" (click)="logout()">Logout</a>
+
+    <div>
+      <div class="row">
+        <div class="col-auto p-0" *ngIf="isAuthenticated()">
+          <button class="btn btn-primary ml-3 mr-2" routerLink="posts/new">Add post</button>
+        </div>
+
+        <div class="col pl-2" *ngIf="isAuthenticated()">
+          <button class="btn btn-secondary dropdown dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Profile
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" routerLink="posts/manage">My posts</a></li>
+            <li><a class="dropdown-item" routerLink="users/settings">Settings</a></li>
+            <hr>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </ul>
+        </div>
+        <div class="col" *ngIf="!isAuthenticated()">
+          <div class=" row">
+            <div class="col-auto p-0">
+              <a class="btn btn-primary" routerLink="login">Login</a>
+            </div>
+            <div class="col-auto pl-2">
+              <a class="btn btn-info" routerLink="register">Register</a>
+            </div>
+          </div>
         </div>
       </div>
-      <a class="btn btn-raised btn-primary mr-2 ml-3" routerLink="login" *ngIf="!isAuthenticated()">Login</a>
-      <a class="btn btn-raised btn-info" routerLink="register" *ngIf="!isAuthenticated()">Register</a>
-
     </div>
-
-  </div>
   </div>
 </nav>
-
-
-
 
 <div class="container">
   <router-outlet>

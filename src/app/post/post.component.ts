@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PostCreateService} from '../post-create.service';
-import {Observable} from 'rxjs';
 import {PostPayload} from '../post-create/post-payload';
 
 @Component({
   selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.sass']
+  templateUrl: './post.component.html'
 })
 export class PostComponent implements OnInit {
 
-  posts: Observable<Array<PostPayload>>;
+  posts: PostPayload[];
 
-  constructor(private postCreateService: PostCreateService) { }
+  constructor(private postCreateService: PostCreateService) {
+  }
 
   ngOnInit(): void {
-    this.posts = this.postCreateService.getAllPosts();
+    this.loadData();
   }
 
   format(createdAt: string) {
@@ -23,9 +22,15 @@ export class PostComponent implements OnInit {
   }
 
   formatText(content: string) {
-    if (content.length > 60){
+    if (content.length > 60) {
       return content.slice(0, 60) + '...';
     }
     return content;
+  }
+
+  private loadData() {
+    this.postCreateService.getAllPosts().subscribe(data => {
+      this.posts = data;
+    });
   }
 }
