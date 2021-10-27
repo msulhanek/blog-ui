@@ -1,0 +1,21 @@
+<h1 class="mat-display-3 mb-0 mt-2">Edit Post</h1>
+
+<form [formGroup]="editPostForm" (ngSubmit)="submit()">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" [formControlName]="'title'" [defaultValue]="post.title" class="form-control" id="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <label for="body">Body</label>
+    <editor id="body" [formControlName]="'content'" [init]="{plugins: 'link'}"></editor>
+  </div>
+  <div class="form-group">
+    <label for="image">Upload Title Image: </label>
+    <input type="file" class="btn" id="image" (change)="onFileChanged($event)">
+    <span style="color: red" *ngIf="!file">Unsupported file type</span>
+  </div>
+
+  <button type="submit" class="btn btn-raised btn-primary" [disabled]="editPostForm.invalid || !file">Submit</button>
+</form>
+
+

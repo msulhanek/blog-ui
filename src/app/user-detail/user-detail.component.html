@@ -1,0 +1,30 @@
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="assets/images/{{user.profilePicture}}" class="card-img mb-2" alt="No image">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h1 class="mat-display-2 mt-2 mb-3" style="color: gray">{{user.name + " " + user.surename}}
+          <span style="color: black;"><i>as </i></span>{{user.username}}</h1>
+        <p class="card-text">{{user.note}}</p>
+        <p class="card-text"><small class="text-muted">Registered: {{format(user.registerDate)}}</small></p>
+        <hr>
+        <h1 class="mb-0 mt-2">Latest posts</h1>
+        <div class="row">
+          <div class="mt-2 col-4" *ngFor="let post of posts | async">
+            <div class="card" routerLink="/posts/{{post.id}}">
+              <div class="card-body">
+                <h5 class="card-title" >{{post.title}}</h5>
+              </div>
+              <div class="card-footer">
+                  <p class="card-text"><small class="text-muted">Posted {{format(post.createdAt)}}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

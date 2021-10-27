@@ -1,0 +1,12 @@
+<br>
+<ngb-carousel #carousel [interval]="3000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
+  <ng-template ngbSlide *ngFor="let post of posts | async">
+    <div class="carousel-caption">
+      <a href="/posts/{{post.id}} " class="btn btn-raised btn-secondary">{{post.title}}</a>
+    </div>
+    <div class="picsum-img-wrapper">
+        <img class="card-img-top" src="assets/images/{{post.titleImg}}" alt="My image description" height="600px">
+    </div>
+
+  </ng-template>
+</ngb-carousel>

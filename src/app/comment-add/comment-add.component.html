@@ -1,0 +1,14 @@
+<div class="card mx-2 mt-2">
+  <div class="card-body">
+    <h1 class="mb-1">New comment</h1>
+    <div class="alert alert-danger mb-0" *ngIf="comment" role="alert">
+      Comment must be at least 5 chars long!
+    </div>
+      <form [formGroup]="commentPost" (ngSubmit)="submit()">
+        <div class="form-group">
+          <editor id="body" [formControlName]="'body'" [init]="{plugins: 'link'}"></editor>
+        </div>
+        <button type="submit" class="btn btn-raised btn-primary" [disabled]="commentPost.invalid">Add comment</button>
+      </form>
+  </div>
+</div>

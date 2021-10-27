@@ -1,0 +1,23 @@
+<h1 class="mat-display-3 mt-2">My posts</h1>
+
+
+
+<table class="table table-stripped">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Created at</th>
+    <th class="icon-link-column"></th>
+    <th class="icon-link-column"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let post of posts | async">
+    <td><a routerLink="/posts/{{post.id}}">{{post.title}}</a></td>
+    <td>{{format(post.createdAt)}}</td>
+    <td><a routerLink="/posts/{{post.id}}/edit"><i class="fa fa-edit"></i></a></td>
+    <td><a (click)="delete(post)"><i class="fa fa-trash" style="color: red" id="trash"></i></a></td>
+  </tr>
+  </tbody>
+</table>
+

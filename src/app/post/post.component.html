@@ -1,0 +1,18 @@
+<h1 class="mat-display-3 mb-0 mt-2">Latest posts</h1>
+<div class="row col-12">
+    <div class="mt-2 mx-1" style="max-width: 530px;min-width: 530px;" *ngFor="let post of posts | async">
+        <div class="card">
+          <img class="card-img-top" routerLink="/posts/{{post.id}}" src="assets/images/{{post.titleImg}}" style="height: 200px" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title" routerLink="/posts/{{post.id}}">{{post.title}}</h5>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <p class="col-9 card-text mt-0"><small class="text-muted">Posted {{format(post.createdAt)}}</small></p>
+              <p class="col card-text btn btn-sm mt-0" routerLink="/users/{{post.username}}">By {{post.username}}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+

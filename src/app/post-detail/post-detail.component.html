@@ -1,0 +1,27 @@
+<div class="card">
+  <img class="card-img-top" src="assets/images/{{post.titleImg}}" alt="Card image cap" style="height: 400px">
+  <div class="card-body">
+    <h1 class="mat-display-2 mt-2 mb-3" style="color: gray">{{post.title}}</h1>
+    <hr>
+    <p class="card-text" [innerHTML]="post.content"></p>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <p class="card-text mt-2 mb-0 ml-4"><small class="text-muted">Posted {{format(post.createdAt)}}</small></p>
+      <p class="btn btn-sm btn-secondary mt-0 mx-1" routerLink="/users/{{post.username}}">By {{post.username}}</p>
+      <p class="btn btn-sm btn-raised btn-info mt-0 mx-1" routerLink="/posts/{{post.id}}/edit" *ngIf="isOwner()">
+        Edit</p>
+      <p class="btn btn-sm btn-danger btn-raised mt-0 mx-1" (click)="delete(post)" *ngIf="isOwner()">Delete</p>
+    </div>
+  </div>
+  <div class="card mx-2">
+    <div class="card-header bg-dark text-light">
+      <h1 class="mb-0">Comments</h1>
+    </div>
+
+    <app-comment-get></app-comment-get>
+
+    <app-comment-add></app-comment-add>
+    <br>
+  </div>
+</div>

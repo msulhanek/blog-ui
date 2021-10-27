@@ -1,0 +1,12 @@
+<div class="card mx-2 mt-2" *ngFor="let comment of comments | async">
+  <div class="card-body">
+    <p [innerHTML]="comment.body"></p>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <p class="col-md-8 card-text mt-0 mb-0"><small class="text-muted">Posted {{format(comment.createdAt)}}</small></p>
+      <p class="col btn btn-sm btn-raised btn-danger mr-1 my-0" *ngIf="isOwner(comment.user)" (click)="delete(comment)">Delete</p>
+      <p class="col btn btn-sm btn-raised mt-0 mb-0" routerLink="/users/{{comment.user}}">By {{comment.user}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+
+<div class="card text-center col-lg-6 col-md-9 col-12 mx-auto mt-2">
+  <h1 class="mat-display-3 mb-0 mt-2">User settings</h1>
+  <div class="card-body">
+    <form [formGroup]="this.userEditForm" *ngIf="this.userEditForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="name" class="bmd-label-floating">Name</label>
+        <input type="text" class="form-control" formControlName="name" id="name">
+      </div>
+      <div class="form-group">
+        <label for="surename" class="bmd-label-floating">Surename</label>
+        <input type="text" class="form-control" formControlName="surename" id="surename">
+      </div>
+      <div class="form-group">
+        <label for="email" class="bmd-label-floating">Email address</label>
+        <input type="email" class="form-control" id="email" formControlName="email" [value]="user.email" aria-describedby="emailHelp">
+      </div>
+      <div class="form-group">
+        <label for="username" class="bmd-label-floating">Username</label>
+        <input type="text" class="form-control" id="username" formControlName="username">
+      </div>
+      <br>
+      <h1 class="mat-display-1 mb-0 mt-2">Profile settings</h1>
+      <div class="form-group">
+        <label for="note" class="bmd-label-floating">Note</label>
+        <input type="text" class="form-control" formControlName="note" id="note">
+      </div>
+      <div class="form-group">
+        <label for="image">Profile image: </label>
+        <input type="file" class="btn" id="image" accept="image/*" (change)="onFileChanged($event)">
+        <span style="color: red" *ngIf="!file">Unsupported file type</span>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-raised btn-primary" [disabled]="userEditForm.invalid || !file">Submit</button>
+    </form>
+
+  </div>
+
+</div>
