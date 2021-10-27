@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CommentGetComponent } from './comment-get.component';
 
@@ -6,7 +6,7 @@ describe('CommentGetComponent', () => {
   let component: CommentGetComponent;
   let fixture: ComponentFixture<CommentGetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CommentGetComponent ]
     })
