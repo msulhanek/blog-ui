@@ -21,13 +21,6 @@ export class PostComponent implements OnInit {
     return new Date((parseInt(createdAt) * 1000)).toLocaleString();
   }
 
-  formatText(content: string) {
-    if (content.length > 60) {
-      return content.slice(0, 60) + '...';
-    }
-    return content;
-  }
-
   private loadData() {
     this.postCreateService.getAllPosts().subscribe(data => {
       this.posts = data;
