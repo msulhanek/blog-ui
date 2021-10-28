@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PostPayload} from './post-payload';
 import {PostCreateService} from '../post-create.service';
 import {Router} from '@angular/router';
@@ -17,13 +17,11 @@ export class PostCreateComponent implements OnInit {
   selectedFile: File;
   file: boolean;
 
-  constructor(private postCreateService: PostCreateService, private router: Router, private imageService: ImageService,
-              private localStorageService: LocalStorageService) {
-    this.addPostForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-      body: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      file: new FormControl('', Validators.required)
-    });
+  constructor(private postCreateService: PostCreateService,
+              private router: Router,
+              private imageService: ImageService,
+              private localStorageService: LocalStorageService,
+              private formBuilder: FormBuilder) {
     this.postPayload = {
       id: '',
       title: '',
@@ -36,10 +34,15 @@ export class PostCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.createForm();
   }
 
-  gettitle(){
-    return this.addPostForm.get('title');
+  showTitleError(){
+    return this.addPostForm.get('title').touched && this.addPostForm.get('title').invalid;
+  }
+
+  showFileError(){
+    return this.addPostForm.get('file').touched && this.addPostForm.get('file').invalid;
   }
 
   getBody(){
@@ -80,6 +83,14 @@ export class PostCreateComponent implements OnInit {
       this.router.navigateByUrl('/posts');
     }, error => {
       console.log('Failure Response', error);
+    });
+  }
+
+  private createForm() {
+    this.addPostForm = this.formBuilder.group({
+      title: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      body: ['', [Validators.required, Validators.minLength(5)]],
+      file: ['', [Validators.required]]
     });
   }
 }

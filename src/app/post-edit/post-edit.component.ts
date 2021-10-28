@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PostPayload} from '../post-create/post-payload';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PostCreateService} from '../post-create.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ImageService} from '../image/image.service';
 
 @Component({
@@ -21,26 +21,25 @@ export class PostEditComponent implements OnInit {
   constructor(private actRouter: ActivatedRoute,
               private postService: PostCreateService,
               private router: Router,
-              private imageService: ImageService) {
+              private imageService: ImageService,
+              private formBuilder: FormBuilder) {
     this.file = true;
     this.actRouter.params.subscribe(params => {
       this.permaLink = params['id'];
     });
+  }
+
+  ngOnInit(): void {
     this.postService.getPost(this.permaLink).subscribe((data: PostPayload) => {
       this.post = data;
-      this.editPostForm = new FormGroup({
-        title: new FormControl(data.title, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-        content: new FormControl(data.content, [Validators.required, Validators.minLength(5)]),
-        titleImg: new FormControl(data.titleImg),
+      this.editPostForm = this.formBuilder.group({
+        title: [data.title, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+        content: [data.content, [Validators.required, Validators.minLength(5)]],
+        titleImg: [data.titleImg, [Validators.required]]
       });
     }, (err: any) => {
       console.log('Failure Response', err);
     });
-
-  }
-
-  ngOnInit(): void {
-
   }
 
   submit() {
@@ -65,6 +64,10 @@ export class PostEditComponent implements OnInit {
     }, error => {
       console.log('Failure Response', error);
     });
+  }
+
+  showFileError(){
+    return this.editPostForm.get('titleImg').touched && this.editPostForm.get('titleImg').invalid;
   }
 
   onFileChanged(event) {

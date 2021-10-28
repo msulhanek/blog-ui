@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {UserPayload} from '../users/user-payload';
 import {PostPayload} from '../post-create/post-payload';
 import {PostCreateService} from '../post-create.service';
-import {Observable} from 'rxjs';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
@@ -13,7 +13,7 @@ import {Observable} from 'rxjs';
 })
 export class UserDetailComponent implements OnInit {
   user: UserPayload;
-  posts: Observable<Array<PostPayload>>;
+  posts: PostPayload[];
   usernameLink: string;
   constructor(private userService: UserService, private router: ActivatedRoute, private postService: PostCreateService) { }
 
@@ -22,14 +22,15 @@ export class UserDetailComponent implements OnInit {
       this.usernameLink = params.username;
     });
 
-    this.userService.getUser(this.usernameLink).subscribe((data: UserPayload) => {
-      this.user = data;
-      this.posts = this.postService.getUserPosts(data.username);
-    }, (err: any) => {
-      console.log('Failure Response User', err);
+    const user = this.userService.getUser(this.usernameLink);
+    const posts = this.postService.getUserPosts(this.usernameLink);
+
+    forkJoin([user, posts]).subscribe(response => {
+      this.user = response[0];
+      this.posts = response[1];
+    }, error => {
+      console.log('Failure Response User', error);
     });
-
-
   }
 
   format(registerDate: string) {

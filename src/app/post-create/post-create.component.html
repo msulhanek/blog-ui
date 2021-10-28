@@ -1,21 +1,27 @@
 <h1 class="mt-5">Create New Post</h1>
-<form [formGroup]="addPostForm" (ngSubmit)="addPost()">
-  <div class="form-group">
-    <label for="title" class="bmd-label-floating">Title</label>
-    <input type="text" [formControlName]="'title'" class="form-control" id="title">
-    <span class="bmd-help" *ngIf="gettitle().invalid">Minimal 2 characters long</span>
-  </div>
-  <div class="form-group">
-    <label for="body">Body</label>
-    <editor id="body" [formControlName]="'body'" [init]="{plugins: 'link'}"></editor>
-  </div>
-  <div class="form-group">
-    <label for="image">Upload Title Image: </label>
-    <input type="file" class="btn" id="image" [formControlName]="'file'" accept="image/*" required (change)="onFileChanged($event)">
-    <span style="color: red" *ngIf="!file">Unsupported file type</span>
-  </div>
+<div class="row" *ngIf="addPostForm">
+  <div class="col">
+    <form [formGroup]="addPostForm" (ngSubmit)="addPost()">
+      <div class="form-group">
+        <label for="title" class="bmd-label-floating">Title</label>
+        <input type="text" [formControlName]="'title'" class="form-control" id="title">
+        <span class="bmd-help mr-3" *ngIf="showTitleError()">Minimal 2 characters long</span>
+      </div>
+      <div class="form-group" >
+        <label>Body</label>
+        <editor [formControlName]="'body'" [init]="{plugins: 'link'}"></editor>
+      </div>
+      <div>
+        <label for="image">Upload Title Image: </label>
+        <input type="file" id="image" class="border-0 ml-2" [formControlName]="'file'" accept="image/*"
+               (change)="onFileChanged($event)">
+        <span class="ml-2" style="color: red" *ngIf="showFileError()">Unsupported file type</span>
+      </div>
 
-  <button type="submit" class="btn btn-raised btn-primary" [disabled]="addPostForm.invalid || !file">Submit</button>
-</form>
+      <button type="submit" class="btn btn-raised btn-primary" [disabled]="addPostForm.invalid || !file">Submit</button>
+    </form>
+  </div>
+</div>
+
 
 

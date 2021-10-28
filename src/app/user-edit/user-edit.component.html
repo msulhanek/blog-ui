@@ -27,7 +27,7 @@
       </div>
       <div class="form-group">
         <label for="image">Profile image: </label>
-        <input type="file" class="btn" id="image" accept="image/*" (change)="onFileChanged($event)">
+        <input type="file" class="btn border-0" id="image" accept="image/*" (change)="onFileChanged($event)">
         <span style="color: red" *ngIf="!file">Unsupported file type</span>
       </div>
       <br>

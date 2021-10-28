@@ -3,7 +3,7 @@
     <h1 class="mb-0">Login</h1>
   </div>
   <div class="alert alert-danger" role="alert" *ngIf="message">Login not successfull!</div>
-  <div class="card-body bg-light">
+  <div class="card-body">
     <form [formGroup]="loginForm" (ngSubmit)="submit()">
       <div class="form-group">
         <label for="username" class="bmd-label-floating">Username</label>
